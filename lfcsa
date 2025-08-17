@@ -1,0 +1,35 @@
+Vagrant.configure("2") do |config|
+  # Alap box (Ubuntu 22.04 ajánlott LFCS-hez)
+  config.vm.box = "ubuntu/jammy64"
+
+  # Hely ahol a VM-eket tárolja
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--groups", "/LFCS-LAB"]
+    vb.memory = 1024
+    vb.cpus = 1
+  end
+
+  # SERVER
+  config.vm.define "server" do |server|
+    server.vm.hostname = "server"
+    server.vm.network "private_network", ip: "192.168.56.10"
+  end
+
+  # CLIENT1
+  config.vm.define "client1" do |client|
+    client.vm.hostname = "client1"
+    client.vm.network "private_network", ip: "192.168.56.11"
+  end
+
+  # CLIENT2
+  config.vm.define "client2" do |client|
+    client.vm.hostname = "client2"
+    client.vm.network "private_network", ip: "192.168.56.12"
+  end
+
+  # CLIENT3
+  config.vm.define "client3" do |client|
+    client.vm.hostname = "client3"
+    client.vm.network "private_network", ip: "192.168.56.13"
+  end
+end
